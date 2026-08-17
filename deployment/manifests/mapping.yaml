@@ -1,0 +1,17 @@
+kubectl apply -n kwaf -f - <<-EOF
+apiVersion: waas.radware.com/v1beta1
+kind: Mapping
+metadata:
+  name: waas-ext-auth-mapping
+spec:
+  operatorEmail: support@somewhere.com
+  maps:
+  - domains:
+    - httpbin.kwaf-demo.test
+    - httpbin.kwaf-demo.test:*
+    operatorEmail: ""
+    profile:
+      name: waas-api-profile
+      namespace: kwaf
+---
+EOF

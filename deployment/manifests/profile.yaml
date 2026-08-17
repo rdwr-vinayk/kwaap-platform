@@ -1,0 +1,28 @@
+kubectl apply -n kwaf -f - <<-EOF
+apiVersion: waas.radware.com/v1beta1
+kind: Profile
+metadata:
+  name:  waas-api-profile
+  namespace: kwaf
+  labels:
+    release: waas
+spec:
+  policies:
+  - name: apiPolicy
+    operatorEmail: support@radware.com
+    protections:
+    - id: httpbin
+      signatures:
+        opMode: Active
+      expressions:
+        opMode: Active
+    classifiers:
+    - protectionId: httpbin
+      hostname: '*'
+      id: httpbin-sample
+      path:
+        operand: Prefix
+        value: /
+---
+EOF
+
